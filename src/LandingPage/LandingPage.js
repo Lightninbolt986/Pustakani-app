@@ -6,7 +6,7 @@ function LandingPage() {
       <div>
         <button
           onClick={function e() {
-            window.location.href = "/donate";
+            window.location.href = "/login";
           }}
         >
           Donate Books
