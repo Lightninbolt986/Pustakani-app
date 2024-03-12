@@ -1,11 +1,10 @@
 import React from "react";
 
-function ProfilePage() {
+function ProfilePage({ user, onLogout }) {
   return (
     <div>
-      <div>
-        <button>Donate Books</button>
-      </div>
+      Guten tag, {user.name}, or shall i say {user.email}?
+      <button onClick={onLogout}>Logout</button>
     </div>
   );
 }
