@@ -3,7 +3,7 @@ import React from "react";
 function ProfilePage({ user, onLogout }) {
   return (
     <div>
-      Guten tag, {user.name}, or shall i say {user.email}?
+      Guten tag, {user.name} {user.email}?
       <button onClick={onLogout}>Logout</button>
     </div>
   );

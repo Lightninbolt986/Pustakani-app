@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import ProfilePage from "../ProfilePage/ProfilePage";
+import Profile from "./ProfilePage";
 
-function LoginPage() {
+function ProfilePage() {
   const [user, setUser] = useState(null);
   const handleLogout = () => {
     setUser(null);
   };
   if (user) {
-    return <ProfilePage user={user} onLogout={handleLogout} />;
+    return <Profile user={user} onLogout={handleLogout} />;
   }
 
   return (
@@ -32,4 +32,4 @@ function LoginPage() {
     </GoogleOAuthProvider>
   );
 }
-export default LoginPage;
+export default ProfilePage;
