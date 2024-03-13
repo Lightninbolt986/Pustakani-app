@@ -1,24 +1,31 @@
 import React from "react";
+import "./LandingPage.css";
 
 function LandingPage() {
   return (
-    <div>
+    <div className="button-box">
       <div>
         <button
+          className="donate-button"
           onClick={function e() {
             window.location.href = "/#profile";
           }}
         >
           Donate Books
+          <br />
+          पुस्तकें दान
         </button>
       </div>
       <div>
         <button
+          className="receive-button"
           onClick={function e() {
             window.location.href = "/#receive";
           }}
         >
           Receive Books
+          <br />
+          पुस्तकें प्राप्त
         </button>
       </div>
     </div>
