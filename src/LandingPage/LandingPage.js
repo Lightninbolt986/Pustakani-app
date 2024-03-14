@@ -6,7 +6,7 @@ function LandingPage() {
     <div className="button-box">
       <div>
         <button
-          className="donate-button"
+          className="donate-button landing-button"
           onClick={function e() {
             window.location.href = "/#profile";
           }}
@@ -18,7 +18,7 @@ function LandingPage() {
       </div>
       <div>
         <button
-          className="receive-button"
+          className="receive-button landing-button"
           onClick={function e() {
             window.location.href = "/#receive";
           }}

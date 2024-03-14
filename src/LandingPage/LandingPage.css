@@ -12,8 +12,7 @@
   gap: 1rem;
 }
 
-.donate-button,
-.receive-button {
+.landing-button {
   padding: 0;
   cursor: pointer;
   font-family: inherit;
@@ -29,40 +28,40 @@
   min-width: 30rem;
   border-radius: 0.5rem;
   box-shadow: 1px 1px 5px rgba(51, 101, 138, 0.5);
-  transition: background-color 0.2s linear 0ms;
-  transition: color 0.2s linear 0ms;
+  transition: color 0.3s linear 0ms;
+  transition: --p 0.5s;
+  background-image: linear-gradient(var(--e), #5ca4a9 var(--p), #2d1e2f);
 }
 
-.donate-button:hover {
+.landing-button:hover {
   box-shadow: 0px 0px 5px #33658a;
-  background-color: #2d1e2f;
-  /* animation-name: hover-animation;
-  animation-duration: 2s; */
-  color: white;
-}
-.receive-button:hover {
-  box-shadow: 0px 0px 5px #33658a;
-  background-color: #2d1e2f;
+  --p: -150%;
   color: white;
 }
 
 /* media queries */
 
 @media (max-width: 992px) {
-  .donate-button,
-  .receive-button {
+  .landing-button {
     min-height: 0;
     min-width: 0;
     width: 96vw;
     height: 46vh;
+    --e: 0deg;
   }
 }
-
-/* @keyframes hover-animation {
-  from {
-    background-color: #5ca4a9;
+@media (min-width: 993px) {
+  .landing-button {
+    --e: 180deg;
   }
-  to {
-    background-color: #2d1e2f;
-  }
-} */
+}
+@property --p {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --e {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
