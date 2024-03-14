@@ -3,9 +3,9 @@
 }
 
 #root {
-  background: linear-gradient(45deg, #083334, #09310c);
+  background: linear-gradient(45deg, #106566, #09310c);
   background-size: 400% 400%;
-  animation: backgroundAnim 15s ease infinite;
+  animation: backgroundAnim 7s ease infinite;
 }
 
 .button-box {
