@@ -2,13 +2,19 @@
   box-sizing: border-box;
 }
 
+#root {
+  background: linear-gradient(45deg, #083334, #09310c);
+  background-size: 400% 400%;
+  animation: backgroundAnim 15s ease infinite;
+}
+
 .button-box {
   min-width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   gap: 1rem;
 }
 
@@ -22,8 +28,8 @@
   background-color: #5ca4a9;
   border: 0;
   margin: 0.5rem;
-  width: 46vw;
-  height: 96vh;
+  width: 39vw;
+  height: 72vh;
   min-height: 22rem;
   min-width: 30rem;
   border-radius: 0.5rem;
@@ -45,8 +51,8 @@
   .landing-button {
     min-height: 0;
     min-width: 0;
-    width: 96vw;
-    height: 46vh;
+    width: 60vw;
+    height: 30vh;
     --e: 0deg;
   }
 }
@@ -64,4 +70,15 @@
   syntax: "<angle>";
   inherits: false;
   initial-value: 0deg;
+}
+@keyframes backgroundAnim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
