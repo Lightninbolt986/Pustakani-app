@@ -1,10 +1,15 @@
 import React from "react";
+import "./ProfilePage.css";
 
 function ProfilePage({ user, onLogout }) {
   return (
-    <div>
-      Guten tag, {user.name} {user.email}?
-      <button onClick={onLogout}>Logout</button>
+    <div className="profile-page-box">
+      <h1>
+        Guten tag, {user.name} {user.email}?
+      </h1>
+      <button onClick={onLogout} className="profile-page-logout-button">
+        Logout
+      </button>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./ProfilePage.css";
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
@@ -15,21 +16,26 @@ function ProfilePage() {
   }
 
   return (
-    <GoogleOAuthProvider clientId="46186689711-u7rf9dc5jn1lqjgu18ca9r926fchdje4.apps.googleusercontent.com">
-      <div>hello</div>
-      <GoogleLogin
-        auto_select
-        onSuccess={(credentialResponse) => {
-          const decoded = jwtDecode(credentialResponse.credential);
-          setUser(decoded);
-          //AHA USER DATA
-        }}
-        onError={() => {
-          console.log("Login Failed");
-        }}
-        useOneTap
-      />
-    </GoogleOAuthProvider>
+    <div className="login-box">
+      <GoogleOAuthProvider clientId="46186689711-u7rf9dc5jn1lqjgu18ca9r926fchdje4.apps.googleusercontent.com">
+        <div className="login-text">
+          Please sign in to continue <br />
+          कृपया आगे बढ़ने के लिए साइन इन करें
+        </div>
+        <GoogleLogin
+          auto_select
+          onSuccess={(credentialResponse) => {
+            const decoded = jwtDecode(credentialResponse.credential);
+            setUser(decoded);
+            //AHA USER DATA
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+          useOneTap
+        />
+      </GoogleOAuthProvider>
+    </div>
   );
 }
 export default ProfilePage;
