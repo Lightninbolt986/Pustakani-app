@@ -8,7 +8,7 @@ function LandingPage() {
         <button
           className="donate-button landing-button"
           onClick={function e() {
-            window.location.href = "/#profile";
+            window.location.href = "/profile";
           }}
         >
           Donate Books
@@ -20,7 +20,7 @@ function LandingPage() {
         <button
           className="receive-button landing-button"
           onClick={function e() {
-            window.location.href = "/#receive";
+            window.location.href = "/receive";
           }}
         >
           Receive Books
