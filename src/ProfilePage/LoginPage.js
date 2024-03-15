@@ -5,11 +5,13 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import Profile from "./ProfilePage";
-
+import { googleLogout } from "@react-oauth/google";
+  
 function ProfilePage() {
   const [user, setUser] = useState(null);
   const handleLogout = () => {
     setUser(null);
+    googleLogout();
   };
   if (user) {
     return <Profile user={user} onLogout={handleLogout} />;
@@ -27,7 +29,7 @@ function ProfilePage() {
           onSuccess={(credentialResponse) => {
             const decoded = jwtDecode(credentialResponse.credential);
             setUser(decoded);
-            //AHA USER DATA
+            console.log(decoded);
           }}
           onError={() => {
             console.log("Login Failed");
