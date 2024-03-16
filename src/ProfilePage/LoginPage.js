@@ -6,7 +6,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import Profile from "./ProfilePage";
 import { googleLogout } from "@react-oauth/google";
-  
+
 function ProfilePage() {
   const [user, setUser] = useState(null);
   const handleLogout = () => {
@@ -19,7 +19,7 @@ function ProfilePage() {
 
   return (
     <div className="login-box">
-      <GoogleOAuthProvider clientId="46186689711-u7rf9dc5jn1lqjgu18ca9r926fchdje4.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_ID}>
         <div className="login-text">
           Please sign in to continue <br />
           कृपया आगे बढ़ने के लिए साइन इन करें
