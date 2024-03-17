@@ -4,9 +4,7 @@ import "./ProfilePage.css";
 function ProfilePage({ user, onLogout }) {
   return (
     <div className="profile-page-box">
-      <h1>
-        Guten tag, {user.name} {user.email}?
-      </h1>
+      <h1>Guten tag, {user.name}</h1>
       <button onClick={onLogout} className="profile-page-logout-button">
         Logout
       </button>
