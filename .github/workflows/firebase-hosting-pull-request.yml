@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: npm ci && npm run build
       - run:  touch .env
               echo REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }} >> .env
               echo REACT_APP_AUTH_DOMAIN=${{ secrets.REACT_APP_AUTH_DOMAIN }} >> .env
@@ -22,7 +23,6 @@ jobs:
               echo REACT_APP_MEASUREMENT_ID=${{ secrets.REACT_APP_MEASUREMENT_ID }} >> .env
               echo REACT_APP_GOOGLE_ID=${{ secrets.REACT_APP_GOOGLE_ID }} >> .env
               cat .env
-      - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
