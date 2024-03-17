@@ -7,6 +7,16 @@ import { jwtDecode } from "jwt-decode";
 import Profile from "./ProfilePage";
 import { googleLogout } from "@react-oauth/google";
 
+import {
+  collection,
+  addDoc,
+  getFirestore,
+  getDocs,
+  where,
+  query,
+} from "firebase/firestore";
+import app from "../firestore";
+
 function ProfilePage() {
   const [user, setUser] = useState(null);
   const handleLogout = () => {
@@ -26,10 +36,33 @@ function ProfilePage() {
         </div>
         <GoogleLogin
           auto_select
-          onSuccess={(credentialResponse) => {
+          onSuccess={async (credentialResponse) => {
             const decoded = jwtDecode(credentialResponse.credential);
             setUser(decoded);
-            console.log(decoded);
+            const db = getFirestore(app);
+            const userCollection = collection(db, "users");
+            const quer = query(
+              userCollection,
+              where("email", "==", decoded.email)
+            );
+            const querySnapshot = await getDocs(quer);
+            if (!querySnapshot.empty) {
+              querySnapshot.forEach((doc) => {
+                console.log("User exists with ID: ", doc.id);
+              });
+            } else {
+              addDoc(userCollection, {
+                email: decoded.email,
+                name: decoded.name,
+                picture: decoded.picture,
+              })
+                .then((docRef) => {
+                  console.log("Document written with ID: ", docRef.id);
+                })
+                .catch((e) => {
+                  console.error(e);
+                });
+            }
           }}
           onError={() => {
             console.log("Login Failed");
