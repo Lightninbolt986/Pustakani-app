@@ -59,8 +59,8 @@ function ProfilePage({ user, onLogout }) {
               </Modal.Header>
               <Modal.Body>
                 <form>
-                  <p>Book name:</p>
-                  <input type="text" placeholder="Enter book name" required />
+                  <p>Book name/Author:</p>
+                  <input type="text" placeholder="Enter book name" id="bookName" required />
                   <p>Class:</p>
                   <select>
                     {[...Array(12)].map((e, i) => (

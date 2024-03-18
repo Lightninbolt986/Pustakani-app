@@ -36,13 +36,13 @@ function ProfilePage() {
         const db = getFirestore(app);
         const docRef = doc(db, "users", userToken);
         getDoc(docRef).then((doc) => {
-          if (doc.exists) {
-            setUser(doc.data());
-            console.log("Document data:", doc.data());
-          } else {
-            console.log("No such document!");
-          }
-        });
+            if (doc.exists) {
+              setUser(doc.data());
+              console.log("Document data:", doc.data());
+            } else {
+              console.log("No such document!");
+            }
+                    });
       }
     }
   });
@@ -94,7 +94,7 @@ function ProfilePage() {
           onError={() => {
             console.log("Login Failed");
           }}
-          useOneTap
+          
         />
       </GoogleOAuthProvider>
     </div>
