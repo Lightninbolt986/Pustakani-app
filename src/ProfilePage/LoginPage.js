@@ -79,6 +79,7 @@ function ProfilePage() {
                 email: decoded.email,
                 name: decoded.name,
                 picture: decoded.picture,
+                books: [],
               })
                 .then((docRef) => {
                   console.log("Document written with ID: ", docRef.id);
