@@ -4,6 +4,9 @@ import { useState } from "react";
 import "./ProfilePage.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
+import app from "../firestore";
+import secureLocalStorage from "react-secure-storage";
 const subjects = [
   "Mathematics",
   "Science",
@@ -27,7 +30,7 @@ const subjects = [
   "Fine Art",
   "Computer Science",
 ]; //TODO: add subjects
-function ProfilePage({ user, onLogout }) {
+function ProfilePage({ user, onLogout, setUser }) {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -38,7 +41,21 @@ function ProfilePage({ user, onLogout }) {
     setShowModal(false);
   };
 
-  const addBook = () => {};
+  const addBook = (e) => {
+    e.preventDefault();
+    const bookName = document.getElementById("bookName").value;
+    const bookClass = document.getElementById("ClassSelect").value;
+    const bookSubject = document.getElementById("SubjectSelect").value;
+    user.books = [
+      ...user.books,
+      { title: bookName, class: bookClass, subject: bookSubject },
+    ];
+    const db = getFirestore(app);
+    const docRef = doc(db, "users", secureLocalStorage.getItem("userToken"));
+    updateDoc(docRef, user);
+    setUser(user);
+    closeModal();
+  };
   return (
     <div className="profile-page-box">
       <h1>Guten tag, {user.name}</h1>
@@ -53,40 +70,48 @@ function ProfilePage({ user, onLogout }) {
         {showModal && (
           <div className="modal">
             <h2>Add a new book</h2>
+
             <Modal show={showModal} onHide={closeModal} centered autoFocus>
-              <Modal.Header closeButton>
-                <Modal.Title>Modal title</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <form>
-                  <p>Book name/Author:</p>
-                  <input type="text" placeholder="Enter book name" id="bookName" required />
-                  <p>Class:</p>
-                  <select>
+              <form onSubmit={addBook}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Modal title</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <label htmlFor="bookName">Book name/Author:</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    placeholder="Enter book name"
+                    id="bookName"
+                    required
+                  />
+                  <label htmlFor="ClassSelect">Class:</label>
+                  <select className="form-control" id="ClassSelect">
                     {[...Array(12)].map((e, i) => (
                       <option key={i + 1} value={i + 1}>
                         {i + 1}
                       </option>
                     ))}
                   </select>
-                  <p>Subject:</p>
-                  <select>
+
+                  <label htmlFor="SubjectSelect">Subject:</label>
+                  <select className="form-control" id="SubjectSelect">
                     {subjects.map((e, i) => (
                       <option key={e} value={e}>
                         {e}
                       </option>
                     ))}
                   </select>
-                </form>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={closeModal}>
-                  Close
-                </Button>
-                <Button variant="primary" onClick={addBook()}>
-                  Add
-                </Button>
-              </Modal.Footer>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={closeModal}>
+                    Close
+                  </Button>
+                  <Button className="btn btn-primary" type="submit">
+                    Submit form
+                  </Button>
+                </Modal.Footer>{" "}
+              </form>
             </Modal>
           </div>
         )}
