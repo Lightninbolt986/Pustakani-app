@@ -24,3 +24,19 @@
   font-size: 1.2rem;
   font-weight: 500;
 }
+.bookDiv{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  width: auto;
+  max-width: 80%;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
