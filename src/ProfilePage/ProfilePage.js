@@ -202,9 +202,6 @@ function ProfilePage({ user, onLogout, setUser }) {
           )}
         </ol>
       </div>
-      <button onClick={onLogout} className="profile-page-logout-button">
-        Logout
-      </button>
     </div>
   );
 }
