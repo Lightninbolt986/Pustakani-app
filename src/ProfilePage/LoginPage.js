@@ -38,7 +38,6 @@ function ProfilePage() {
         getDoc(docRef).then((doc) => {
           if (doc.exists()) {
             setUser(doc.data());
-            console.log("Document data:", doc.data());
           } else {
             console.log("No such document!");
             setUser(null);
@@ -72,7 +71,6 @@ function ProfilePage() {
             const querySnapshot = await getDocs(quer);
             if (!querySnapshot.empty) {
               querySnapshot.forEach((doc) => {
-                console.log("User exists with ID: ", doc.id);
                 secureLocalStorage.setItem("userToken", doc.id);
                 setUser(doc.data());
               });
@@ -84,11 +82,9 @@ function ProfilePage() {
                 books: [],
               })
                 .then((docRef) => {
-                  console.log("Document written with ID: ", docRef.id);
                   getDoc(docRef).then((doc) => {
                     if (doc.exists()) {
                       setUser(doc.data());
-                      console.log("Document data:", doc.data());
                     } else {
                       console.log("No such document!");
                       setUser(null);
