@@ -896,6 +896,33 @@ function ProfilePage({ user, onLogout, setUser }) {
     }
     document.getElementById("inputDistrict").innerHTML = htmlString;
   };
+  const deleteAddress = () => {
+    if (!user.books.length) {
+      const { address, ...newUser } = user;
+
+      const db = getFirestore(app);
+      const docRef = doc(db, "users", secureLocalStorage.getItem("userToken"));
+      updateDoc(docRef, newUser);
+      setUser(newUser);
+      closeModal();
+    } else {
+      alert("You need to delete all your books before deleting the address");
+    }
+  };
+  const deletePhone = () => {
+    if (!user.books.length) {
+      const { phone, ...newUser } = user;
+      const db = getFirestore(app);
+      const docRef = doc(db, "users", secureLocalStorage.getItem("userToken"));
+      updateDoc(docRef, newUser);
+      setUser(newUser);
+      closeModal();
+    } else {
+      alert(
+        "You need to delete all your books before deleting the phone number"
+      );
+    }
+  };
   return (
     <div className="profile-page-box">
       <h1>Hello, {user.name}</h1>
@@ -934,6 +961,15 @@ function ProfilePage({ user, onLogout, setUser }) {
               className="profile-page-add-btn"
             >
               Edit
+            </button>
+          )}{" "}
+          {user.phone && (
+            <button
+              style={{ marginLeft: "2px" }}
+              onClick={deletePhone}
+              className="profile-page-add-btn"
+            >
+              Delete
             </button>
           )}
         </div>
@@ -1016,6 +1052,15 @@ function ProfilePage({ user, onLogout, setUser }) {
               className="profile-page-add-btn"
             >
               Edit
+            </button>
+          )}{" "}
+          {user.address && (
+            <button
+              style={{ marginLeft: "2px" }}
+              onClick={deleteAddress}
+              className="profile-page-add-btn"
+            >
+              Delete
             </button>
           )}
         </div>
