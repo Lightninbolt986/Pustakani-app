@@ -892,7 +892,15 @@ function ProfilePage({ user, onLogout, setUser }) {
     var htmlString = "";
     for (var i = 0; i < list.length; i++) {
       htmlString =
-        htmlString + "<option value='" + list[i] + "'>" + list[i] + "</option>";
+        htmlString +
+        "<option value='" +
+        list[i] +
+        "' " +
+        "key='" +
+        list[i].replaceAll(" ", "") +
+        "'>" +
+        list[i] +
+        "</option>";
     }
     document.getElementById("inputDistrict").innerHTML = htmlString;
   };
