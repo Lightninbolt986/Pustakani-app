@@ -32,22 +32,23 @@ function ProfilePage() {
     let userToken = secureLocalStorage.getItem("userToken");
     if (userToken) {
       if (!user) {
-        console.log("a");
+        setUser({});
         const db = getFirestore(app);
         const docRef = doc(db, "users", userToken);
         getDoc(docRef).then((doc) => {
-          if (doc.exists) {
+          if (doc.exists()) {
             setUser(doc.data());
-            console.log("Document data:", doc.data());
           } else {
             console.log("No such document!");
+            setUser(null);
+            secureLocalStorage.removeItem("userToken");
           }
         });
       }
     }
-  });
+  }, [user]);
   if (user) {
-    return <Profile user={user} onLogout={handleLogout} />;
+    return <Profile user={user} onLogout={handleLogout} setUser={setUser} />;
   }
 
   return (
@@ -70,7 +71,6 @@ function ProfilePage() {
             const querySnapshot = await getDocs(quer);
             if (!querySnapshot.empty) {
               querySnapshot.forEach((doc) => {
-                console.log("User exists with ID: ", doc.id);
                 secureLocalStorage.setItem("userToken", doc.id);
                 setUser(doc.data());
               });
@@ -79,11 +79,18 @@ function ProfilePage() {
                 email: decoded.email,
                 name: decoded.name,
                 picture: decoded.picture,
+                books: [],
               })
                 .then((docRef) => {
-                  console.log("Document written with ID: ", docRef.id);
-                  setUser(doc.data());
-                  secureLocalStorage.setItem("userToken", docRef.id);
+                  getDoc(docRef).then((doc) => {
+                    if (doc.exists()) {
+                      setUser(doc.data());
+                    } else {
+                      console.log("No such document!");
+                      setUser(null);
+                      secureLocalStorage.removeItem("userToken");
+                    }
+                  });
                 })
                 .catch((e) => {
                   console.error(e);
@@ -93,7 +100,6 @@ function ProfilePage() {
           onError={() => {
             console.log("Login Failed");
           }}
-          useOneTap
         />
       </GoogleOAuthProvider>
     </div>
