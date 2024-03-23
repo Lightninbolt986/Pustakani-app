@@ -3,6 +3,8 @@ import { Button } from "react-bootstrap";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import app from "../firestore";
 import BookBox from "./bookBox";
+import "./ReceivePage.css";
+
 const subjects = [
   "Mathematics",
   "Science",
@@ -64,11 +66,11 @@ function ReceivePage() {
     });
   };
   return (
-    <div>
+    <div className="receive-page-container">
       <div>
         <form onSubmit={searchBooks}>
-          {" "}
-          <label htmlFor="ClassSelect">Class:</label>
+          <label htmlFor="ClassSelect">Class: </label>
+          {"     "}
           <select className="form-control" id="ClassSelect">
             {[...Array(12)].map((e, i) => (
               <option key={i + 1} value={i + 1}>
@@ -76,7 +78,9 @@ function ReceivePage() {
               </option>
             ))}
           </select>
-          <label htmlFor="SubjectSelect">Subject:</label>
+          <br />
+          <br />
+          <label htmlFor="SubjectSelect">Subject:</label>{" "}
           <select className="form-control" id="SubjectSelect">
             {subjects.map((e, i) => (
               <option key={e} value={e}>
@@ -84,16 +88,23 @@ function ReceivePage() {
               </option>
             ))}
           </select>{" "}
+          <br />
+          <br />
           <Button className="btn btn-primary" type="submit">
             Submit form
           </Button>
         </form>
       </div>
-      <div>
+      <div class="book-boxes-container">
         {" "}
-        {books.map((element) => {
-          return <BookBox {...element} />;
-        })}
+        {console.log(books)}
+        {books.length > 0 ? (
+          books.map((element) => {
+            return <BookBox {...element} />;
+          })
+        ) : (
+          <p>No books found</p>
+        )}
       </div>
     </div>
   );

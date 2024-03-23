@@ -8,7 +8,7 @@ const BookBox = ({ book, id, phone, address }) => {
   const handleShow = () => setShow(true);
 
   return (
-    <div>
+    <div className="book-box-container">
       <div className="book-box">
         <h3>{book.title}</h3>
         <p>Class: {book.class}</p>
