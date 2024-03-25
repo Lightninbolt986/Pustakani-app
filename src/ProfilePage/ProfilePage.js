@@ -999,7 +999,7 @@ function ProfilePage({ user, onLogout, setUser }) {
                     defaultValue={user.phone ? user.phone.slice(4) : ""}
                     className="form-control"
                     type="text"
-                    placeholder="9555251539"
+                    placeholder="9XXXXXXXXX"
                     id="pnumber"
                     required
                     pattern="[0-9]{10}"
