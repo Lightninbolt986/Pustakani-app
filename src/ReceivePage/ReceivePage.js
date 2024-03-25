@@ -30,7 +30,7 @@ const subjects = [
 ];
 
 function ReceivePage() {
-  let [books, setBooks] = useState([]);
+  let [books, setBooks] = useState([false]);
   const searchBooks = (e) => {
     e.preventDefault();
     const classSelect = document.getElementById("ClassSelect").value;
@@ -97,11 +97,14 @@ function ReceivePage() {
       </div>
       <div class="book-boxes-container">
         {" "}
-        {console.log(books)}
         {books.length > 0 ? (
-          books.map((element) => {
-            return <BookBox {...element} />;
-          })
+          books[0] ? (
+            books.map((element) => {
+              return <BookBox {...element} />;
+            })
+          ) : (
+            false
+          )
         ) : (
           <p>No books found</p>
         )}

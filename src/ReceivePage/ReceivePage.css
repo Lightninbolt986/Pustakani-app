@@ -2,6 +2,7 @@
   width: 100vw;
   height: 100vh;
   /* text-align: center; */
+  padding: 20px;
 }
 
 .book-box {
@@ -31,9 +32,11 @@
   margin-top: 1rem;
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.form-control {
+.form-control,
+.form-control-plaintext {
   width: 50% !important;
   display: inline !important;
 }
