@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./ProfilePage.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { doc, getFirestore, updateDoc } from "firebase/firestore";
+import { deleteField, doc, getFirestore, updateDoc } from "firebase/firestore";
 import app from "../firestore";
 import secureLocalStorage from "react-secure-storage";
 const subjects = [
@@ -898,23 +898,24 @@ function ProfilePage({ user, onLogout, setUser }) {
   };
   const deleteAddress = () => {
     if (!user.books.length) {
-      const { address, ...newUser } = user;
-
+      user = { ...user, address: deleteField() };
       const db = getFirestore(app);
       const docRef = doc(db, "users", secureLocalStorage.getItem("userToken"));
-      updateDoc(docRef, newUser);
+      updateDoc(docRef, user);
+      const { address, ...newUser } = user;
       setUser(newUser);
-      closeModal();
     } else {
       alert("You need to delete all your books before deleting the address");
     }
   };
   const deletePhone = () => {
     if (!user.books.length) {
-      const { phone, ...newUser } = user;
+      user = { ...user, phone: deleteField() };
       const db = getFirestore(app);
       const docRef = doc(db, "users", secureLocalStorage.getItem("userToken"));
-      updateDoc(docRef, newUser);
+      updateDoc(docRef, user);
+
+      const { phone, ...newUser } = user;
       setUser(newUser);
       closeModal();
     } else {
