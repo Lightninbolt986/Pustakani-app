@@ -84,6 +84,7 @@ function ProfilePage() {
                 .then((docRef) => {
                   getDoc(docRef).then((doc) => {
                     if (doc.exists()) {
+                      secureLocalStorage.setItem("userToken", doc.id);
                       setUser(doc.data());
                     } else {
                       console.log("No such document!");

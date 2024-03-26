@@ -4,7 +4,7 @@ import { useState } from "react";
 import "./ProfilePage.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { doc, getFirestore, updateDoc } from "firebase/firestore";
+import { deleteField, doc, getFirestore, updateDoc } from "firebase/firestore";
 import app from "../firestore";
 import secureLocalStorage from "react-secure-storage";
 const subjects = [
@@ -906,23 +906,24 @@ function ProfilePage({ user, onLogout, setUser }) {
   };
   const deleteAddress = () => {
     if (!user.books.length) {
-      const { address, ...newUser } = user;
-
+      user = { ...user, address: deleteField() };
       const db = getFirestore(app);
       const docRef = doc(db, "users", secureLocalStorage.getItem("userToken"));
-      updateDoc(docRef, newUser);
+      updateDoc(docRef, user);
+      const { address, ...newUser } = user;
       setUser(newUser);
-      closeModal();
     } else {
       alert("You need to delete all your books before deleting the address");
     }
   };
   const deletePhone = () => {
     if (!user.books.length) {
-      const { phone, ...newUser } = user;
+      user = { ...user, phone: deleteField() };
       const db = getFirestore(app);
       const docRef = doc(db, "users", secureLocalStorage.getItem("userToken"));
-      updateDoc(docRef, newUser);
+      updateDoc(docRef, user);
+
+      const { phone, ...newUser } = user;
       setUser(newUser);
       closeModal();
     } else {
@@ -990,29 +991,24 @@ function ProfilePage({ user, onLogout, setUser }) {
                 </Modal.Header>
                 <Modal.Body>
                   <label htmlFor="ccode">Country code: </label>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "baseline",
-                    }}
-                  >
-                    <p>+</p>
-                    <input
-                      className="form-control-plaintext"
-                      type="number"
-                      id="ccode"
-                      value="91"
-                      readOnly
-                      required
-                    />
-                  </div>
+
+                  <p style={{ display: "inline-block" }}>+</p>
+                  <input
+                    className="form-control-plaintext"
+                    type="number"
+                    id="ccode"
+                    value="91"
+                    readOnly
+                    required
+                  />
+
+                  <br />
                   <label htmlFor="pnumber">Phone number: </label>
                   <input
                     defaultValue={user.phone ? user.phone.slice(4) : ""}
                     className="form-control"
                     type="text"
-                    placeholder="9555251539"
+                    placeholder="9XXXXXXXXX"
                     id="pnumber"
                     required
                     pattern="[0-9]{10}"
@@ -1103,6 +1099,7 @@ function ProfilePage({ user, onLogout, setUser }) {
                     id="address"
                     required
                   />
+                  <br />
                   <small id="emailHelp" className="form-text text-muted">
                     Do not enter your exact address, just a rough locality. This
                     address will be public. Example: Sector 4<br></br>
@@ -1112,18 +1109,20 @@ function ProfilePage({ user, onLogout, setUser }) {
                     className="form-control-plaintext"
                     type="text"
                     id="acountry"
-                    value="India"
+                    value=" India"
                     required
                     readOnly
                   />
-                  <label htmlFor="inputState">State</label>
+                  <br />
+                  <label htmlFor="inputState">State: </label>
                   <select
                     className="form-control"
                     id="state"
                     onChange={SelectState}
                     defaultValue={user.address?.state}
+                    required
                   >
-                    <option value="SelectState">Select State</option>
+                    <option value="">Select State</option>
                     <option value="Andra Pradesh">Andra Pradesh</option>
                     <option value="Arunachal Pradesh">Arunachal Pradesh</option>
                     <option value="Assam">Assam</option>
@@ -1174,8 +1173,9 @@ function ProfilePage({ user, onLogout, setUser }) {
                     <option value="Lakshadweep">Lakshadweep</option>
                     <option value="Puducherry">Puducherry</option>
                   </select>
-                  <label htmlFor="inputDistrict">District</label>
-                  <select className="form-control" id="inputDistrict">
+                  <br />
+                  <label htmlFor="inputDistrict">District: </label>
+                  <select className="form-control" id="inputDistrict" required>
                     <option value="">-- select a state--</option>
                   </select>{" "}
                 </Modal.Body>
@@ -1202,7 +1202,7 @@ function ProfilePage({ user, onLogout, setUser }) {
             <Modal show={showModal} onHide={closeModal} centered autoFocus>
               <form onSubmit={addBook}>
                 <Modal.Header closeButton>
-                  <Modal.Title>Modal title</Modal.Title>
+                  <Modal.Title>Add a Book</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <label htmlFor="bookName">Book name/Author:</label>
@@ -1213,6 +1213,8 @@ function ProfilePage({ user, onLogout, setUser }) {
                     id="bookName"
                     required
                   />
+                  <br />
+                  <br />
                   <label htmlFor="ClassSelect">Class:</label>
                   <select className="form-control" id="ClassSelect">
                     {[...Array(12)].map((e, i) => (
@@ -1222,6 +1224,8 @@ function ProfilePage({ user, onLogout, setUser }) {
                     ))}
                   </select>
 
+                  <br />
+                  <br />
                   <label htmlFor="SubjectSelect">Subject:</label>
                   <select className="form-control" id="SubjectSelect">
                     {subjects.map((e, i) => (
